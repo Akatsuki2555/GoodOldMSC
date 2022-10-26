@@ -5,14 +5,22 @@ using System.Reflection;
 using HutongGames.PlayMaker;
 using MSCLoader;
 using UnityEngine;
+using HutongGames.PlayMaker.Actions;
+using Object = UnityEngine.Object;
+using OldCarSounds.Stuff;
 
 namespace GoodOldMSC.Mods {
 	public class OldCarSounds {
 		private GameObject _satsuma;
+        private Renderer _knobLights;
+        private Renderer _knobHazards;
+        private Renderer _knobWasher;
+        private Renderer _knobChoke;
 
 		private AudioClip engineOff;
 		private AudioClip engineOn;
 		private AudioClip assemble;
+        private GameObject radio;
 
 		private Material noSelectionWhite;
 		private Material noSelection;
@@ -31,6 +39,8 @@ namespace GoodOldMSC.Mods {
         Settings EngineSoundsTypeSettings = new Settings("sounds", "Engine sound type", 0b0);
         Settings OldRpmGaugeSettings = new Settings("rpmgauge", "Old RPM Gauge", false);
         Settings OldDelaySettings = new Settings("oldrev", "Old engine revving", false);
+
+        private Camera _cam;
 
         public OldCarSounds() {
             _stopwatch = Stopwatch.StartNew();
@@ -54,10 +64,51 @@ namespace GoodOldMSC.Mods {
 			engineOn = assetBundle.LoadAsset<AudioClip>("idle_sisa");
 			engineOff = assetBundle.LoadAsset<AudioClip>("idle");
 			assemble = assetBundle.LoadAsset<AudioClip>("assemble");
+            radio = assetBundle.LoadAsset<GameObject>("ocs_radio_main");
+            assetBundle.Unload(false);
+
+            if ((bool) SelectionSelectionSettings.Value) {
+                _knobChoke = GameObject.Find("dashboard meters(clone)/Knobs/KnobChoke/knob").GetComponent<Renderer>();
+                _knobHazards = GameObject.Find("dashboard meters(clone)/Knobs/KnobHazards/knob").GetComponent<Renderer>();
+                _knobLights = GameObject.Find("dashboard meters(clone)/Knobs/KnobLights/knob").GetComponent<Renderer>();
+                _knobWasher = GameObject.Find("dashboard meters(clone)/Knobs/KnobWasher/knob").GetComponent<Renderer>();
+            }
+
+            if ((bool) OldRadioSongsSettings.Value) {
+                GameObject dashboardMeters = GameObject.Find("dashboard meters(Clone)");
+                GameObject radioInst = Object.Instantiate(radio);
+                radioInst.transform.parent = dashboardMeters.transform;
+                radioInst.AddComponent<RadioCore>();
+            }
 		}
 
 		public void Update() {
-			
+			if (_cam == null) {
+                _cam = Camera.main;
+            }
+
+            foreach (RaycastHit hit in Physics.RaycastAll(_cam.transform.position, _cam.transform.forward, 3f)) {
+                switch (hit.collider.gameObject.name) {
+                    case "Choke":
+                        _knobChoke.material = selection;
+                        break;
+                    case "Hazard":
+                        _knobHazards.material = selection;
+                        break;
+                    case "ButtonWipers":
+                        _knobWasher.material = selection;
+                        break;
+                    case "LightModes":
+                        _knobLights.material = selection;
+                        break;
+                    default:
+                        _knobChoke.material = noSelection;
+                        _knobHazards.material = noSelection;
+                        _knobWasher.material = noSelection;
+                        _knobLights.material = noSelection;
+                        break;
+                }
+            }
 		}
 
 		public void ModSettings(Mod mod) {
@@ -85,6 +136,7 @@ namespace GoodOldMSC.Mods {
             Settings.AddCheckBox(mod, InfoTextSettings);
             Settings.AddCheckBox(mod, OldRadioSongsSettings);
             Settings.AddCheckBox(mod, OldRpmGaugeSettings);
+            Settings.AddCheckBox(mod, OldDelaySettings);
         }
 
         private Stopwatch _stopwatch;
@@ -106,5 +158,5 @@ namespace GoodOldMSC.Mods {
             $"Lake run current time: {_stopwatch.Elapsed.Minutes}:{_stopwatch.Elapsed.Seconds}:{_stopwatch.Elapsed.Milliseconds}");
             GUI.Label(new Rect(0, 60, 1000, 20), "Lake run last time: ");
         }
-	}
+    }
 }
