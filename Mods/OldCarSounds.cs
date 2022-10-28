@@ -7,8 +7,13 @@ namespace GoodOldMSC.Mods {
         SoundController _satsumaSound;
 
         SettingsDropDownList engineSoundsType;
+        SettingsCheckBox oldAssembleSounds, oldDashboard;
 
-        AudioClip accelSound, deaccelSound;
+        AudioClip accelSound, deaccelSound, attachDetachSound;
+        Material black, white, selection;
+
+        GameObject triggerHazard, triggerWasher, triggerChoke, triggerLight;
+        GameObject knobHazard, knobWasher, knobChoke, knobLight;
 
         public OldCarSounds() {
             _stopwatch = Stopwatch.StartNew();
@@ -18,6 +23,11 @@ namespace GoodOldMSC.Mods {
             AssetBundle assetBundle = AssetBundle.CreateFromMemoryImmediate(Resources.oldcarsounds);
             accelSound = assetBundle.LoadAsset<AudioClip>("idle_sisa");
             deaccelSound = assetBundle.LoadAsset<AudioClip>("idle");
+            attachDetachSound = assetBundle.LoadAsset<AudioClip>("assemble");
+
+            black = assetBundle.LoadAsset<Material>("black");
+            white = assetBundle.LoadAsset<Material>("white");
+            selection = assetBundle.LoadAsset<Material>("selection");
             assetBundle.Unload(false);
 
             GameObject shitsuma = GameObject.Find("SATSUMA(557kg, 248)");
@@ -31,11 +41,12 @@ namespace GoodOldMSC.Mods {
                     AudioSource deaccelSource = shitsuma.transform.GetChild(41).GetComponent<AudioSource>();
 
                     _satsumaSound.engineThrottle = accelSound;
+                    _satsumaSound.engineThrottleVolume = 1f;
                     accelSource.clip = accelSound;
                     accelSource.Play();
 
-                    _satsumaSound.engineNoThrottle = deaccelSound;
-                    deaccelSource.clip = deaccelSound;
+                    _satsumaSound.engineNoThrottle = accelSound;
+                    deaccelSource.clip = accelSound;
                     deaccelSource.Play();
 
                     shitsuma.transform.Find("CarSimulation/Exhaust/FromMuffler").GetComponent<AudioSource>().clip = deaccelSound;
@@ -43,7 +54,6 @@ namespace GoodOldMSC.Mods {
                     shitsuma.transform.Find("CarSimulation/Exhaust/FromPipe").GetComponent<AudioSource>().clip = deaccelSound;
                     shitsuma.transform.Find("CarSimulation/Exhaust/FromEngine").GetComponent<AudioSource>().clip = deaccelSound;
 
-                    _satsumaSound.engineThrottleVolume = 1f;
                     goto case 1;
                 case 1:
                     _satsumaSound.engineThrottlePitchFactor = 1;
@@ -52,6 +62,35 @@ namespace GoodOldMSC.Mods {
             }
 
             #endregion
+
+            if (oldAssembleSounds.GetValue()) {
+                GameObject buildSounds = GameObject.Find("MasterAudio/CarBuilding");
+                buildSounds.transform.Find("disassemble").GetComponent<AudioSource>().clip = attachDetachSound;
+                buildSounds.transform.Find("assemble").GetComponent<AudioSource>().clip = attachDetachSound;
+            }
+
+            if (oldDashboard.GetValue()) {
+                GameObject dash = GameObject.Find("dashboard(Clone)");
+                dash.GetComponent<MeshRenderer>().material = black;
+                GameObject steeringWheel = GameObject.Find("stock steering wheel(Clone)");
+                steeringWheel.GetComponent<MeshRenderer>().material = black;
+                GameObject dashMeters = GameObject.Find("dashboard meters(Clone)");
+                dashMeters.GetComponent<MeshRenderer>().material = black;
+
+                triggerHazard = dashMeters.transform.Find("Knobs/ButtonsDash/Hazard").gameObject;
+                triggerWasher = dashMeters.transform.Find("Knobs/ButtonsDash/ButtonWipers").gameObject;
+                triggerChoke = dashMeters.transform.Find("Knobs/ButtonsDash/Choke").gameObject;
+                triggerLight = dashMeters.transform.Find("Knobs/ButtonsDash/LightModes").gameObject;
+
+                knobChoke = dashMeters.transform.Find("Knobs/KnobChoke/knob").gameObject;
+                knobChoke.GetComponent<Renderer>().material = black;
+                knobHazard = dashMeters.transform.Find("Knobs/KnobHazards/knob").gameObject;
+                knobHazard.GetComponent<Renderer>().material = black;
+                knobWasher = dashMeters.transform.Find("Knobs/KnobWasher/knob").gameObject;
+                knobWasher.GetComponent<Renderer>().material = black;
+                knobLight = dashMeters.transform.Find("Knobs/KnobLights/knob").gameObject;
+                knobLight.GetComponent<Renderer>().material = black;
+            }
         }
 
         public void Update() {
@@ -64,6 +103,7 @@ namespace GoodOldMSC.Mods {
                 "Old pitch (2016)",
                 "From old alpha (2013-2014)"
             });
+            oldAssembleSounds = Settings.AddCheckBox(mod, "assemble", "Old assemble sounds");
         }
 
         private Stopwatch _stopwatch;
