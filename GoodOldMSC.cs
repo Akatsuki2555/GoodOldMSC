@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Net;
-using GoodOldMSC.Mods;
-using MSCLoader;
-using UnityEngine;
+﻿using MSCLoader;
 
 namespace GoodOldMSC {
 	// ReSharper disable once UnusedType.Global
@@ -33,12 +27,13 @@ namespace GoodOldMSC {
 		}
 
 		public override void ModSettings() {
+			Settings.AddText(this, "Since the mod is in alpha, more features will be added in the future.");
 			Settings.AddHeader(this, "Satsuma");
 
 			#region Satsuma
 
 			Settings.AddCheckBox(this, _ocsEnabled);
-			Settings.AddText(this, "These are settings from OldCarSounds.");
+			_oldCarSounds.ModSettings(this);
 
 			#endregion
 		}
