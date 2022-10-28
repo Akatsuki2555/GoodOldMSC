@@ -30,11 +30,20 @@ namespace GoodOldMSC.Mods {
                     AudioSource accelSource = shitsuma.transform.GetChild(40).GetComponent<AudioSource>();
                     AudioSource deaccelSource = shitsuma.transform.GetChild(41).GetComponent<AudioSource>();
 
+                    _satsumaSound.engineThrottle = accelSound;
                     accelSource.clip = accelSound;
                     accelSource.Play();
 
+                    _satsumaSound.engineNoThrottle = deaccelSound;
                     deaccelSource.clip = deaccelSound;
                     deaccelSource.Play();
+
+                    shitsuma.transform.Find("CarSimulation/Exhaust/FromMuffler").GetComponent<AudioSource>().clip = deaccelSound;
+                    shitsuma.transform.Find("CarSimulation/Exhaust/FromHeaders").GetComponent<AudioSource>().clip = deaccelSound;
+                    shitsuma.transform.Find("CarSimulation/Exhaust/FromPipe").GetComponent<AudioSource>().clip = deaccelSound;
+                    shitsuma.transform.Find("CarSimulation/Exhaust/FromEngine").GetComponent<AudioSource>().clip = deaccelSound;
+
+                    _satsumaSound.engineThrottleVolume = 1f;
                     goto case 1;
                 case 1:
                     _satsumaSound.engineThrottlePitchFactor = 1;
