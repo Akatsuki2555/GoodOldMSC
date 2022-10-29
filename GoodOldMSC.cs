@@ -20,10 +20,15 @@ namespace GoodOldMSC {
 		}
 		
 		public override void OnGUI() {
+			if ((bool) _ocsEnabled.Value) {
+				_oldCarSounds.OnGUI();
+            }
 		}
 
 		public override void Update() {
-			_oldCarSounds.Update();
+			if ((bool) _ocsEnabled.Value) {
+				_oldCarSounds.Update();
+			}
 		}
 
 		public override void ModSettings() {
