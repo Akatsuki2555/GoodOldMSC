@@ -16,7 +16,6 @@ namespace GoodOldMSC.Mods {
         AudioClip accelSound, deaccelSound, attachDetachSound;
         Material black, white, selection;
 
-        GameObject triggerHazard, triggerWasher, triggerChoke, triggerLight;
         GameObject knobHazard, knobWasher, knobChoke, knobLight;
 
         public OldCarSounds() {
@@ -85,11 +84,6 @@ namespace GoodOldMSC.Mods {
                 GameObject dashMeters = GameObject.Find("dashboard meters(Clone)");
                 dashMeters.GetComponent<MeshRenderer>().material = black;
 
-                triggerHazard = dashMeters.transform.Find("Knobs/ButtonsDash/Hazard").gameObject;
-                triggerWasher = dashMeters.transform.Find("Knobs/ButtonsDash/ButtonWipers").gameObject;
-                triggerChoke = dashMeters.transform.Find("Knobs/ButtonsDash/Choke").gameObject;
-                triggerLight = dashMeters.transform.Find("Knobs/ButtonsDash/LightModes").gameObject;
-
                 knobChoke = dashMeters.transform.Find("Knobs/KnobChoke/knob").gameObject;
                 knobChoke.GetComponent<Renderer>().material = black;
                 knobHazard = dashMeters.transform.Find("Knobs/KnobHazards/knob").gameObject;
@@ -110,9 +104,9 @@ namespace GoodOldMSC.Mods {
         public void OnGUI() {
             if (oldInformation.GetValue() && Application.loadedLevelName == "GAME") {
                 GUI.Label(new Rect(0, 0, 500, 20), $"GoodOldMSC {mod.Version}");
-                GUI.Label(new Rect(0, 20, 500, 20), $"FPS: {fps}");
+                GUI.Label(new Rect(0, 20, 500, 20), $"FPS: {fps:00.0}");
                 GUI.Label(new Rect(0, 40, 500, 20),
-                    $"Lake run current time: {_stopwatch.Elapsed.Minutes}:{_stopwatch.Elapsed.Seconds}:{_stopwatch.Elapsed.Milliseconds}");
+                    $"Lake run current time: {_stopwatch.Elapsed.Minutes:00}:{_stopwatch.Elapsed.Seconds:00}:{_stopwatch.Elapsed.Milliseconds:00}");
                 GUI.Label(new Rect(0, 60, 500, 20), "Lake run last time: ");
             }
         }

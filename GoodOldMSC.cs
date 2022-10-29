@@ -4,7 +4,7 @@ namespace GoodOldMSC {
 	// ReSharper disable once UnusedType.Global
 	public class GoodOldMsc : Mod {
 		public override string ID => "GoodOldMSC";
-		public override string Version => "1.0";
+		public override string Version => "a0.1";
 		public override string Author => "mldkyt";
 
 		public override bool UseAssetsFolder => true;
