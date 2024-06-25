@@ -40,15 +40,13 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 _drivetrain = GetComponent<Drivetrain>();
 
                 // if the user selected "old alpha 2014" sounds
-                if (OldCarSounds.EngineSoundsTypeSettings.Value.ToString() == "2") {
+                if (OldCarSounds.EngineSoundsTypeSettings.GetValue() == 2) {
 
                     // Change sounds.
                     _soundController.engineNoThrottle = OldCarSounds.Clip2;
                     _soundController.engineThrottle = OldCarSounds.Clip2;
-                    OldCarSounds.PrintF("Applied extra sound effects.", "load");
 
                     // Change the pitches.
-                    OldCarSounds.PrintF("Loading audio pitch change.", "load");
                     _soundController.engineThrottlePitchFactor = 1f;
                     _soundController.engineThrottleVolume = 1f;
                     _soundController.engineNoThrottlePitchFactor = 0.6f;
@@ -56,7 +54,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     // Change more audio clips.
                     gameObject.transform.GetChild(40).GetComponent<AudioSource>().clip = OldCarSounds.Clip2;
                     gameObject.transform.GetChild(41).GetComponent<AudioSource>().clip = OldCarSounds.Clip2;
-                    OldCarSounds.PrintF("Loaded in engine sound effects.", "load");
 
                     // Play these audio clips otherwise the sound will be quiet.
                     // In Unity, when you change the clip, the sound will not play automatically.
@@ -72,22 +69,17 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                         OldCarSounds.Clip1;
                     gameObject.transform.Find("CarSimulation/Exhaust/FromEngine").GetComponent<AudioSource>().clip =
                         OldCarSounds.Clip1;
-                    OldCarSounds.PrintF("Applied exhaust sound to the exhaust.", "load");
                 }
 
                 // if the user selected "first release 2016" sounds
-                if (OldCarSounds.EngineSoundsTypeSettings.Value.ToString() == "1") {
+                if (OldCarSounds.EngineSoundsTypeSettings.GetValue() == 1) {
 
                     // adjust pitches
                     _soundController.engineThrottlePitchFactor = 1.0f;
                 }
 
-                OldCarSounds.PrintF("Applied sound effects for engine.", "load");
-
-                OldCarSounds.PrintF("Loading old sounds for removing/attaching parts", "load");
-
                 //Only apply assemble sound if the user enabled it.
-                if ((bool)OldCarSounds.AssembleSounds.Value) {
+                if (OldCarSounds.AssembleSounds.GetValue()) {
 
                     //Find the container of assemble and disassemble sounds.
                     GameObject go1 = GameObject.Find("MasterAudio/CarBuilding");
@@ -100,9 +92,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 }
 
                 // Load old dash texture  if the user has chosen to
-                if ((bool)OldCarSounds.OldDashTexturesSettings.Value) {
-                    OldCarSounds.PrintF("Loading old car textures.", "LOAD");
-
+                if (OldCarSounds.OldDashTexturesSettings.GetValue()) {
                     // Create the old reflective material.
                     Material theMaterial = OldCarSounds.Material1;
 
@@ -134,38 +124,28 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     knobLights.GetComponent<Renderer>().material = theMaterial;
                 }
 
-                OldCarSounds.PrintF("Adjusting drivetrain sounds.", "load");
-
                 //Make drivetrain quieter.
                 _soundController.transmissionVolume = 0.08f;
                 _soundController.transmissionVolumeReverse = 0.08f;
-                OldCarSounds.PrintF("Adjusting drivetrain done.", "load");
-
-                OldCarSounds.PrintF("Adjusting shift delay.", "load");
 
                 // Shift delay selection load
-                if (OldCarSounds.ShiftDelaySelectionSettings.Value.ToString() != "0") {
-                    if (OldCarSounds.ShiftDelaySelectionSettings.Value.ToString() == "1") {
+                if (OldCarSounds.ShiftDelaySelectionSettings.GetValue() != 0) {
+                    if (OldCarSounds.ShiftDelaySelectionSettings.GetValue() == 1) {
 
                         // Old shift delay
                         _drivetrain.shiftTime = 0;
                     }
 
-                    if (OldCarSounds.ShiftDelaySelectionSettings.Value.ToString() == "2") {
+                    if (OldCarSounds.ShiftDelaySelectionSettings.GetValue() == 2) {
 
                         // No shift delay
                         _drivetrain.shiftTime = 0.0000001f;
                     }
                 }
 
-                OldCarSounds.PrintF("Adjusting shift delay done.", "load");
-
                 //If the user enabled the old radio
-                if ((bool)OldCarSounds.OldRadioEnabled.Value) {
-                    OldCarSounds.PrintF("Loading old radio.", "LOAD");
-
+                if (OldCarSounds.OldRadioEnabled.GetValue()) {
                     // Spawn old car radio
-                    OldCarSounds.PrintF("Spawning cube radio.", "load");
                     _radio1Instantiated = Instantiate(OldCarSounds.Radio1);
 
                     // Define knobs
@@ -174,32 +154,24 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     switchKnob = _radio1Instantiated.transform.Find("trigger_ocs_switch1").gameObject;
 
                     // Add a script to the radio
-                    OldCarSounds.PrintF("Adding script to cube radio.", "load");
                     radioCoreInstance = _radio1Instantiated.AddComponent<RadioCore>();
                 }
 
-                OldCarSounds.PrintF("Finished loading old radio.", "load");
-
                 // Disable dashboard knob sounds when the user enables it.
-                if ((bool)OldCarSounds.DisableKnobSoundsSettings.Value) {
-                    OldCarSounds.PrintF("Disabling knob sounds: Definition.", "load");
-
+                if (OldCarSounds.DisableKnobSoundsSettings.GetValue()) {
                     // Define the audio source
                     _dashButtonAudio = GameObject.Find("CarFoley/dash_button").GetComponent<AudioSource>();
-                    OldCarSounds.PrintF("Disabling knob sounds: Definition done.", "load");
                 }
 
-                OldCarSounds.PrintF("Defining key sounds.", "load");
-
                 // Define the key sounds
-                if (OldCarSounds.KeySoundSelectionSettings.Value.ToString() != "0") {
+                if (OldCarSounds.KeySoundSelectionSettings.GetValue() != 0) {
                     _carKeysIn = GameObject.Find("CarFoley/carkeys_in");
                     _carKeysOut = GameObject.Find("CarFoley/carkeys_out");
                     _carKeysSwitch = GameObject.Find("CarFoley/ignition_keys");
                 }
 
                 // Define door sounds
-                if ((bool)OldCarSounds.DisableDoorSoundsSettings.Value) {
+                if (OldCarSounds.DisableDoorSoundsSettings.GetValue()) {
                     _openDoorSound = GameObject.Find("CarFoley/open_door1");
                     _openHoodSound = GameObject.Find("CarFoley/open_hood1");
                     _openTrunkSound = GameObject.Find("CarFoley/open_trunk1");
@@ -208,12 +180,11 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     _closeTrunkSound = GameObject.Find("CarFoley/close_trunk1");
                 }
 
-                if ((bool)OldCarSounds.DisableFootSoundsSettings.Value) {
+                if (OldCarSounds.DisableFootSoundsSettings.GetValue()) {
                     _walkingSoundsParent = GameObject.Find("Walking");
                 }
             }
-            catch (Exception e) {
-                OldCarSounds.PrintF(e.Message, "ERR", true);
+            catch (Exception) {
             }
         }
 
@@ -221,10 +192,10 @@ namespace GoodOldMSC.Mods.OldCarSounds {
             if (ModLoader.GetCurrentScene() == CurrentScene.Game) {
 
                 // Car key sounds
-                if (OldCarSounds.KeySoundSelectionSettings.Value.ToString() != "0") {
+                if (OldCarSounds.KeySoundSelectionSettings.GetValue() != 0) {
 
                     // Old key sounds (2016)
-                    if (OldCarSounds.KeySoundSelectionSettings.Value.ToString() == "1" || OldCarSounds.KeySoundSelectionSettings.Value.ToString() == "2") {
+                    if (OldCarSounds.KeySoundSelectionSettings.GetValue() == 1 || OldCarSounds.KeySoundSelectionSettings.GetValue() == 2) {
 
                         // Disable the carkeysin and carkeysout sounds
                         if (_carKeysIn.GetComponent<AudioSource>().isPlaying) {
@@ -236,7 +207,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                         }
                     }
 
-                    if (OldCarSounds.KeySoundSelectionSettings.Value.ToString() == "2") {
+                    if (OldCarSounds.KeySoundSelectionSettings.GetValue() == 2) {
                         if (_carKeysSwitch.GetComponent<AudioSource>().isPlaying) {
                             _carKeysSwitch.GetComponent<AudioSource>().Stop();
                         }
@@ -244,7 +215,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 }
 
                 // If the user has chosen to
-                if ((bool)OldCarSounds.DisableKnobSoundsSettings.Value) {
+                if (OldCarSounds.DisableKnobSoundsSettings.GetValue()) {
 
                     // Disable the dashboard sound constantly.
                     if (_dashButtonAudio.isPlaying) {
@@ -252,7 +223,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     }
                 }
 
-                if ((bool)OldCarSounds.DisableFootSoundsSettings.Value) {
+                if (OldCarSounds.DisableFootSoundsSettings.GetValue()) {
                     foreach (AudioSource item in _walkingSoundsParent.GetComponentsInChildren<AudioSource>()) {
                         if (item.isPlaying) {
                             item.Stop();
@@ -260,7 +231,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     }
                 }
 
-                if ((bool)OldCarSounds.DisableDoorSoundsSettings.Value) {
+                if (OldCarSounds.DisableDoorSoundsSettings.GetValue()) {
                     if (_openDoorSound.GetComponent<AudioSource>().isPlaying) {
                         _openDoorSound.GetComponent<AudioSource>().Stop();
                     }
@@ -286,7 +257,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     }
                 }
 
-                if ((bool)OldCarSounds.OldDelaySettings.Value) {
+                if (OldCarSounds.OldDelaySettings.GetValue()) {
                     _drivetrain.revLimiterTime = 0.1f;
                 }
             }

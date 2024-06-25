@@ -34,14 +34,8 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 File.Delete(Path.Combine(ModLoader.GetModSettingsFolder(mod), "log.log"));
             }
 
-            // Called once, when mod is loading after game is fully loaded
-            PrintF("Starting Loading of OldCarSounds...", "load");
-
-            // Load asset bundle
-            PrintF("Loading AssetBundle", "load");
-
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
-            Stream stream = executingAssembly.GetManifestResourceStream("OldCarSounds.Resources.oldsound.unity3d");
+            Stream stream = executingAssembly.GetManifestResourceStream("GoodOldMSC.Resources.oldsound.unity3d");
             if (stream != null)
             {
                 byte[] shit = new byte[stream.Length];
@@ -51,7 +45,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
 
                 if (EngineSoundsTypeSettings.GetValue() == 2)
                 {
-                    PrintF("Loading audio files from old builds...", "load");
                     Clip2 = assetBundle.LoadAsset<AudioClip>("idle_sisa");
                     Clip1 = assetBundle.LoadAsset<AudioClip>("idle");
                 }
@@ -59,7 +52,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 // Assemble sounds
                 if (AssembleSounds.GetValue())
                 {
-                    PrintF("Loading audio files for assembly sounds...", "load");
                     Clip3 = assetBundle.LoadAsset("assemble") as AudioClip;
                 }
 
@@ -68,7 +60,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 // Music
                 if (OldRadioSongsSettings.GetValue())
                 {
-                    PrintF("Loading radio songs...", "load");
                     Radio1 = assetBundle.LoadAsset("oldradio") as GameObject;
 
                     if (ModLoader.CheckSteam())
@@ -93,7 +84,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     {
                         foreach (string name in Directory.GetFiles(path))
                         {
-                            PrintF("Loading: " + name);
                             WWW www = new WWW("file:///" + name);
                             RadioCore.Clips.Add(www.GetAudioClip(true, false));
                         }
@@ -103,31 +93,23 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 // Dashboard texture
                 if (OldDashTexturesSettings.GetValue())
                 {
-                    PrintF("Loading black material for dashboard");
                     Material1 = assetBundle.LoadAsset<Material>("black");
                 }
 
                 // Selection textures if chosen to
                 if (SelectionSelectionSettings.GetValue())
                 {
-                    PrintF("Loading selection material");
                     SelMaterial = assetBundle.LoadAsset<Material>("selection");
                 }
 
                 // Unload the asset bundle to reduce memory usage
-                PrintF("Unloading AssetBundle", "load");
                 assetBundle.Unload(false);
-            }
-            else
-            {
-                PrintF("Error while loading mod resources. Your copy of OCS is corrupted.", "ERR", true);
             }
 
             // Get the GameObject of Satsuma.
             Satsuma = GameObject.Find("SATSUMA(557kg, 248)");
 
             // Add the component that does the load stuff
-            PrintF("Adding component for Satsuma", "load");
             satsumaOcs = Satsuma.AddComponent<SatsumaOcs>();
 
             // Old RPM Gauge
@@ -140,13 +122,10 @@ namespace GoodOldMSC.Mods.OldCarSounds {
             }
 
             // Create a new instance of stopwatch
-            PrintF("Starting stopwatch for info text", "load");
             _stopwatch = new Stopwatch();
 
             // Start a stopwatch for the lake time info thing
             _stopwatch.Start();
-
-            PrintF("Fully loaded!", "load", true);
         }
 
         public void ModSettings(Mod mod)
@@ -451,73 +430,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     }
                 }
             }
-        }
-
-        /// <summary>
-        ///     Write to logs.
-        ///     Note that if you have the NoLog version of OldCarSounds, it will not do anything.
-        /// </summary>
-        /// <param name="text">Text.</param>
-        /// <param name="module">Where the message is coming from. By default it's SYSTEM.</param>
-        /// <param name="console">
-        ///     If it should be displayed in the console even if it's not
-        ///     debugging mode.
-        /// </param>
-        /// <exception cref="IOException">Cannot write to logs.</exception>
-        public static void PrintF(string text, string module = "SYSTEM", bool console = false)
-        {
-#if !DISABLE_LOG
-            try
-            {
-                string modConfigFolder =
-                    ModLoader.GetModSettingsFolder(ModLoader.LoadedMods.First(x => x.ID == nameof(OldCarSounds)));
-                StreamWriter writer = new StreamWriter(Path.Combine(modConfigFolder, "log.log"), true);
-                StringBuilder builder = new StringBuilder().Append(DateTime.Now).Append(" [").Append(module.ToUpper())
-                    .Append("]: ").Append(text);
-                writer.WriteLine(builder.ToString());
-                writer.Close();
-
-                if (console)
-                {
-                    switch (module.ToUpper())
-                    {
-                        case "ERROR":
-                        case "ERR":
-                            ModConsole.Error(builder.ToString());
-                            break;
-
-                        case "WARN":
-                        case "WARNING":
-                            ModConsole.Warning(builder.ToString());
-                            break;
-
-                        default:
-                            ModConsole.Print(builder.ToString());
-                            break;
-                    }
-                }
-#if DEBUG
-                else {
-                    switch (module.ToUpper()) {
-                        case "ERROR":
-                        case "ERR":
-                            ModConsole.Error(builder.ToString());
-                            break;
-
-                        case "WARN":
-                        case "WARNING":
-                            ModConsole.Warning(builder.ToString());
-                            break;
-
-                        default:
-                            ModConsole.Print(builder.ToString());
-                            break;
-                    }
-                }
-#endif
-            }
-            catch (Exception) { }
-#endif
         }
 
         public static string GameObjectPath(GameObject go)
