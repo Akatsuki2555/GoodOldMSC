@@ -1,4 +1,5 @@
 ﻿using GoodOldMSC.Mods.OldCarSounds;
+using GoodOldMSC.Mods.OldHayosiko;
 
 using HutongGames.PlayMaker.Actions;
 
@@ -14,8 +15,10 @@ namespace GoodOldMSC {
 		public override bool UseAssetsFolder => true;
 
 		private OldCarSounds _ocs = new OldCarSounds();
+		private OldHayosiko _oh = new OldHayosiko();
 
 		private SettingsCheckBox _ocsEnabled;
+		private SettingsCheckBox _ohEnabled;
 
         public override void ModSetup()
         {
@@ -32,6 +35,11 @@ namespace GoodOldMSC {
 			{
 				_ocs.OnLoad(this);
 			}
+
+			if (_ohEnabled.GetValue())
+            {
+                _oh.OnLoad();
+            }
 		}
 		
 		private void Mod_OnGUI() {
@@ -52,12 +60,11 @@ namespace GoodOldMSC {
 			Settings.AddText(this, "Since the mod is in alpha, more features will be added in the future.");
 			Settings.AddHeader(this, "Satsuma");
 
-			#region Satsuma
-
 			_ocsEnabled = Settings.AddCheckBox(this, "ocsEnable", "Enable Old Car Sounds", false);
 			_ocs.ModSettings(this);
 
-			#endregion
+			_ohEnabled = Settings.AddCheckBox(this, "ohEnable", "Enable Old Hayosiko", false);
+			_oh.ModSettings(this);
 		}
 	}
 }
