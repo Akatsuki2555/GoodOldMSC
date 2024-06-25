@@ -39,7 +39,7 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                     Clip3 = assetBundle.LoadAsset("assemble") as AudioClip;
                 }
 
-                _noSel = assetBundle.LoadAsset<Material>("nosel");
+                _noSel = assetBundle.LoadAsset<Material>("white");
 
                 // Music
                 if (OldRadioSongsSettings.GetValue())
