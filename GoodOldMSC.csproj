@@ -40,6 +40,20 @@
     <Compile Include="Mods\OldCarSounds\RadioCore.cs" />
     <Compile Include="Mods\OldCarSounds\RPMGauge.cs" />
     <Compile Include="Mods\OldCarSounds\SatsumaOCS.cs" />
+    <Compile Include="Mods\OldFerndale\OldEngine.cs" />
+    <Compile Include="Mods\OldFerndale\OldFerndale.cs" />
+    <Compile Include="Mods\OldFerndale\OldLicensePlate.cs" />
+    <Compile Include="Mods\OldFerndale\OldRearWheelsSize.cs" />
+    <Compile Include="Mods\OldFerndale\OldRims.cs" />
+    <Compile Include="Mods\OldFerndale\OldSkin.cs" />
+    <Compile Include="Mods\OldFerndale\OldSuspension.cs" />
+    <Compile Include="Mods\OldFerndale\OldTachometer.cs" />
+    <Compile Include="Mods\OldFerndale\RedInterior.cs" />
+    <Compile Include="Mods\OldFerndale\RemoveLinelock.cs" />
+    <Compile Include="Mods\OldFerndale\RemoveMudflaps.cs" />
+    <Compile Include="Mods\OldFerndale\RemoveRearAxle.cs" />
+    <Compile Include="Mods\OldFerndale\RemoveScoop.cs" />
+    <Compile Include="Mods\OldFerndale\RemoveYellowBars.cs" />
     <Compile Include="Mods\OldHayosiko\DisableHorn.cs" />
     <Compile Include="Mods\OldHayosiko\OldEngine.cs" />
     <Compile Include="Mods\OldHayosiko\OldHayosiko.cs" />
@@ -79,6 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\oldtruck.unity3d" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\oldsound.unity3d" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\oldferndale.unity3d" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
