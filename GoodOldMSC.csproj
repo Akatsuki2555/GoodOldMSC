@@ -40,6 +40,13 @@
     <Compile Include="Mods\OldCarSounds\RadioCore.cs" />
     <Compile Include="Mods\OldCarSounds\RPMGauge.cs" />
     <Compile Include="Mods\OldCarSounds\SatsumaOCS.cs" />
+    <Compile Include="Mods\OldHayosiko\DisableHorn.cs" />
+    <Compile Include="Mods\OldHayosiko\OldEngine.cs" />
+    <Compile Include="Mods\OldHayosiko\OldHayosiko.cs" />
+    <Compile Include="Mods\OldHayosiko\OldInsideTextures.cs" />
+    <Compile Include="Mods\OldHayosiko\OldOutsideTextures.cs" />
+    <Compile Include="Mods\OldHayosiko\RemoveDashboard.cs" />
+    <Compile Include="Mods\OldHayosiko\SteeringWheel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +74,9 @@
       <HintPath>A:\SteamLibrary\steamapps\common\My Summer Car\mysummercar_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\oldhayoso.unity3d" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
