@@ -62,10 +62,6 @@ namespace GoodOldMSC {
 			{
 				_ocs.Update();
 			}
-			if (_otEnabled.GetValue())
-            {
-                _ot.OnLoad();
-            }
 		}
 
 		public override void ModSettings() {
