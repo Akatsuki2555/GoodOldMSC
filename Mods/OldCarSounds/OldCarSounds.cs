@@ -18,11 +18,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
 
         public void OnLoad(Mod mod)
         {
-            if (File.Exists(Path.Combine(ModLoader.GetModSettingsFolder(mod), "log.log")))
-            {
-                File.Delete(Path.Combine(ModLoader.GetModSettingsFolder(mod), "log.log"));
-            }
-
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
             Stream stream = executingAssembly.GetManifestResourceStream("GoodOldMSC.Resources.oldsound.unity3d");
             if (stream != null)
@@ -353,17 +348,17 @@ namespace GoodOldMSC.Mods.OldCarSounds {
 
                                 // Aiming at the power knob
                                 // Toggle radio
-                                case "trigger_ocs_power1" when SatsumaOcs.radioCoreInstance.@on:
+                                case "control_power" when SatsumaOcs.radioCoreInstance.@on:
                                     SatsumaOcs.radioCoreInstance.DisableRadio();
                                     break;
 
-                                case "trigger_ocs_power1":
+                                case "control_power":
                                     SatsumaOcs.radioCoreInstance.EnableRadio();
                                     break;
 
                                 // Aiming at the switch song knob
                                 // Change song
-                                case "trigger_ocs_switch1":
+                                case "control_song":
                                     SatsumaOcs.radioCoreInstance.NextClip();
                                     break;
                             }
