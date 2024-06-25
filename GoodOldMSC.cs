@@ -35,13 +35,15 @@ namespace GoodOldMSC {
 		}
 		
 		private void Mod_OnGUI() {
-			if (_ocsEnabled.GetValue()) {
+			if (_ocsEnabled.GetValue())
+			{
 				_ocs.OnGUI();
             }
 		}
 
 		private void Mod_Update() {
-			if (_ocsEnabled.GetValue()) {
+			if (_ocsEnabled.GetValue()) 
+			{
 				_ocs.Update();
 			}
 		}
