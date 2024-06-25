@@ -37,9 +37,21 @@ namespace GoodOldMSC.Mods.OldTruckSounds
         public static SettingsCheckBox HideSPZToggle;
         public static SettingsCheckBox HideMudFlapsToggle;
 
-        public void OnLoad(Mod mod)
+        public void OnLoad()
         {
-            var assetBundle = LoadAssets.LoadBundle(mod, "oldtruck.unity3d");
+            byte[] numArray;
+            using (var manifestResourceStream = Assembly.GetExecutingAssembly()
+                       .GetManifestResourceStream("GoodOldMSC.Resources.oldtruck.unity3d"))
+            {
+                if (manifestResourceStream == null)
+                    throw new Exception("The mod DLL is corrupted, unable to load oldtruck.unity3d. Cannot continue");
+                numArray = new byte[manifestResourceStream.Length];
+                _ = manifestResourceStream.Read(numArray, 0, numArray.Length);
+            }
+
+            var assetBundle = numArray.Length != 0
+                ? AssetBundle.CreateFromMemoryImmediate(numArray)
+                : throw new Exception("The mod DLL is corrupted, unable to load oldtruck.unity3d. Cannot continue");
 
             if (OldStartingSoundToggle.GetValue())
             {
