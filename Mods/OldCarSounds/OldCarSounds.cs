@@ -18,70 +18,63 @@ namespace GoodOldMSC.Mods.OldCarSounds {
 
         public void OnLoad(Mod mod)
         {
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
-            Stream stream = executingAssembly.GetManifestResourceStream("GoodOldMSC.Resources.oldsound.unity3d");
-            if (stream != null)
+            var assetBundle = LoadAssets.LoadBundle(mod, "oldsound.unity3d");
+
+            if (EngineSoundsTypeSettings.GetValue() == 2)
             {
-                byte[] shit = new byte[stream.Length];
-                stream.Read(shit, 0, shit.Length);
+                Clip2 = assetBundle.LoadAsset<AudioClip>("idle_sisa");
+                Clip1 = assetBundle.LoadAsset<AudioClip>("idle");
+            }
 
-                AssetBundle assetBundle = AssetBundle.CreateFromMemoryImmediate(shit);
+            // Assemble sounds
+            if (AssembleSounds.GetValue())
+            {
+                Clip3 = assetBundle.LoadAsset("assemble") as AudioClip;
+            }
 
-                if (EngineSoundsTypeSettings.GetValue() == 2)
+            _noSel = assetBundle.LoadAsset<Material>("white");
+
+            // Music
+            if (OldRadioSongsSettings.GetValue())
+            {
+                Radio1 = assetBundle.LoadAsset("radio") as GameObject;
+
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("mustamies"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("oldradiosong"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song2"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song3"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song4"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song5"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song6"));
+                RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song7"));
+
+                // Import custom songs
+                string path = Path.Combine(ModLoader.GetModAssetsFolder(mod), "radiosongs");
+                if (File.Exists(path))
                 {
-                    Clip2 = assetBundle.LoadAsset<AudioClip>("idle_sisa");
-                    Clip1 = assetBundle.LoadAsset<AudioClip>("idle");
-                }
-
-                // Assemble sounds
-                if (AssembleSounds.GetValue())
-                {
-                    Clip3 = assetBundle.LoadAsset("assemble") as AudioClip;
-                }
-
-                _noSel = assetBundle.LoadAsset<Material>("white");
-
-                // Music
-                if (OldRadioSongsSettings.GetValue())
-                {
-                    Radio1 = assetBundle.LoadAsset("radio") as GameObject;
-
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("mustamies"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("oldradiosong"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song2"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song3"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song4"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song5"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song6"));
-                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song7"));
-
-                    // Import custom songs
-                    string path = Path.Combine(ModLoader.GetModAssetsFolder(mod), "radiosongs");
-                    if (File.Exists(path))
+                    foreach (string name in Directory.GetFiles(path))
                     {
-                        foreach (string name in Directory.GetFiles(path))
-                        {
-                            WWW www = new WWW("file:///" + name);
-                            RadioCore.Clips.Add(www.GetAudioClip(true, false));
-                        }
+                        WWW www = new WWW("file:///" + name);
+                        RadioCore.Clips.Add(www.GetAudioClip(true, false));
                     }
                 }
-
-                // Dashboard texture
-                if (OldDashTexturesSettings.GetValue())
-                {
-                    Material1 = assetBundle.LoadAsset<Material>("black");
-                }
-
-                // Selection textures if chosen to
-                if (SelectionSelectionSettings.GetValue())
-                {
-                    SelMaterial = assetBundle.LoadAsset<Material>("selection");
-                }
-
-                // Unload the asset bundle to reduce memory usage
-                assetBundle.Unload(false);
             }
+
+            // Dashboard texture
+            if (OldDashTexturesSettings.GetValue())
+            {
+                Material1 = assetBundle.LoadAsset<Material>("black");
+            }
+
+            // Selection textures if chosen to
+            if (SelectionSelectionSettings.GetValue())
+            {
+                SelMaterial = assetBundle.LoadAsset<Material>("selection");
+            }
+
+            // Unload the asset bundle to reduce memory usage
+            assetBundle.Unload(false);
+            
 
             // Get the GameObject of Satsuma.
             Satsuma = GameObject.Find("SATSUMA(557kg, 248)");
