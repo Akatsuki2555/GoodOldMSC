@@ -1,5 +1,6 @@
 ﻿using GoodOldMSC.Mods.OldCarSounds;
 using GoodOldMSC.Mods.OldHayosiko;
+using GoodOldMSC.Mods.OldTruckSounds;
 
 using HutongGames.PlayMaker.Actions;
 
@@ -16,9 +17,11 @@ namespace GoodOldMSC {
 
 		private OldCarSounds _ocs = new OldCarSounds();
 		private OldHayosiko _oh = new OldHayosiko();
+		private OldTruckSounds _ot = new OldTruckSounds();
 
 		private SettingsCheckBox _ocsEnabled;
 		private SettingsCheckBox _ohEnabled;
+		private SettingsCheckBox _otEnabled;
 
         public override void ModSetup()
         {
@@ -39,6 +42,11 @@ namespace GoodOldMSC {
 			if (_ohEnabled.GetValue())
             {
                 _oh.OnLoad();
+            }
+
+			if (_otEnabled.GetValue())
+            {
+                _ot.OnLoad();
             }
 		}
 		
@@ -65,6 +73,9 @@ namespace GoodOldMSC {
 
 			_ohEnabled = Settings.AddCheckBox(this, "ohEnable", "Enable Old Hayosiko", false);
 			_oh.ModSettings(this);
+
+			_otEnabled = Settings.AddCheckBox(this, "otEnable", "Enable Old Truck Sounds", false);
+			_ot.ModSettings(this);
 		}
 	}
 }
