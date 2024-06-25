@@ -16,17 +16,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
     public class OldCarSounds {
         public SatsumaOcs satsumaOcs;
 
-        public void OnNewGame()
-        {
-            if (!LoadGameOnMenu)
-            {
-                return;
-            }
-
-            LoadGameOnMenu = false;
-            Application.LoadLevel(3);
-        }
-
         public void OnLoad(Mod mod)
         {
             if (File.Exists(Path.Combine(ModLoader.GetModSettingsFolder(mod), "log.log")))
@@ -60,23 +49,16 @@ namespace GoodOldMSC.Mods.OldCarSounds {
                 // Music
                 if (OldRadioSongsSettings.GetValue())
                 {
-                    Radio1 = assetBundle.LoadAsset("oldradio") as GameObject;
+                    Radio1 = assetBundle.LoadAsset("radio") as GameObject;
 
-                    if (ModLoader.CheckSteam())
-                    {
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("mustamies"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("oldradiosong"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song2"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song3"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song4"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song5"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song6"));
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song7"));
-                    }
-                    else
-                    {
-                        RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("pirate"));
-                    }
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("mustamies"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("oldradiosong"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song2"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song3"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song4"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song5"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song6"));
+                    RadioCore.Clips.Add(assetBundle.LoadAsset<AudioClip>("song7"));
 
                     // Import custom songs
                     string path = Path.Combine(ModLoader.GetModAssetsFolder(mod), "radiosongs");
@@ -130,46 +112,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
 
         public void ModSettings(Mod mod)
         {
-            /* UPDATED SETTINGS DOCS
-            AssembleSounds = new Settings("assembleSounds", "Assemble Sounds", false);
-            DisableDoorSoundsSettings = new Settings("doorSounds", "Disable Door Sounds", false);
-            DisableFootSoundsSettings = new Settings("footSounds", "Disable Foot Sounds", false);
-            DisableKnobSoundsSettings = new Settings("knobSounds", "Disable Knob Sounds", false);
-            OldDashTexturesSettings = new Settings("oldDash", "Old Dashboard", false);
-            InfoTextSettings = new Settings("info", "Information Text", false);
-            OldRadioSongsSettings = new Settings("radio", "Old Radio", false);
-            ShiftDelaySelectionSettings = new Settings("shiftDelay", "Shift Delay Selection", 0);
-            KeySoundSelectionSettings = new Settings("keySound", "Key Sound Selection", 0);
-            SelectionSelectionSettings = new Settings("selection", "Green selections", false);
-            EngineSoundsTypeSettings = new Settings("sounds", "Engine sound type", 0);
-            OldRpmGaugeSettings = new Settings("rpmgauge", "Old RPM Gauge", false);
-            OldDelaySettings = new Settings("oldrev", "Old engine revving", false);
-
-            Settings.AddSlider(this, ShiftDelaySelectionSettings, 0, 2, new[] {
-                "No change",
-                "Build 172",
-                "No delay"
-            });
-            Settings.AddSlider(this, KeySoundSelectionSettings, 0, 2, new[] {
-                "No change",
-                "Old key sounds (2016)",
-                "No key sounds (2014)"
-            });
-            Settings.AddSlider(this, EngineSoundsTypeSettings, 0, 2, new[] {
-                "No engine sound change",
-                "Lower pitch (2016)",
-                "Old alpha (2014)"
-            });
-            Settings.AddCheckBox(this, SelectionSelectionSettings);
-            Settings.AddCheckBox(this, AssembleSounds);
-            Settings.AddCheckBox(this, DisableDoorSoundsSettings);
-            Settings.AddCheckBox(this, DisableFootSoundsSettings);
-            Settings.AddCheckBox(this, DisableKnobSoundsSettings);
-            Settings.AddCheckBox(this, OldDashTexturesSettings);
-            Settings.AddCheckBox(this, InfoTextSettings);
-            Settings.AddCheckBox(this, OldRadioSongsSettings);
-            Settings.AddCheckBox(this, OldRpmGaugeSettings);*/
-
             AssembleSounds = Settings.AddCheckBox(mod, "assembleSounds", "Assemble Sounds", false);
             DisableDoorSoundsSettings = Settings.AddCheckBox(mod, "doorSounds", "Disable Door Sounds", false);
             DisableFootSoundsSettings = Settings.AddCheckBox(mod, "footSounds", "Disable Foot Sounds", false);
@@ -200,7 +142,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
 
         public void OnGUI()
         {
-
             // Use GUI statements
             // Not anything else
             // Called every render
@@ -450,8 +391,6 @@ namespace GoodOldMSC.Mods.OldCarSounds {
             return s;
         }
 
-        #region VARIABLES
-
         public static SettingsCheckBox AssembleSounds;
         public static SettingsCheckBox OldDashTexturesSettings;
         public static SettingsCheckBox InfoTextSettings;
@@ -466,25 +405,16 @@ namespace GoodOldMSC.Mods.OldCarSounds {
         public static SettingsSliderInt EngineSoundsTypeSettings;
         public static SettingsCheckBox OldDelaySettings;
 
-        public static SettingsCheckBox OldRadioEnabled;
-        public static SettingsCheckBox OldRadioSongsEnabled;
-        public static SettingsCheckBox NewRadioSongsEnabled;
-
         public static AudioClip Clip1;
-
         public static AudioClip Clip2;
-
         public static AudioClip Clip3;
 
         public static GameObject Radio1, Satsuma;
 
         public static Material Material1, SelMaterial;
 
-        public static bool LoadGameOnMenu;
-
         private Stopwatch _stopwatch;
         private Material _noSel;
 
-        #endregion VARIABLES
     }
 }

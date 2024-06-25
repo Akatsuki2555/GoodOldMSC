@@ -143,14 +143,14 @@ namespace GoodOldMSC.Mods.OldCarSounds {
             }
 
             //If the user enabled the old radio
-            if (OldCarSounds.OldRadioEnabled.GetValue()) {
+            if (OldCarSounds.OldRadioSongsSettings.GetValue()) {
                 // Spawn old car radio
                 _radio1Instantiated = Instantiate(OldCarSounds.Radio1);
 
                 // Define knobs
-                powerKnob = _radio1Instantiated.transform.Find("trigger_ocs_power1").gameObject;
-                volumeKnob = _radio1Instantiated.transform.Find("trigger_ocs_volume1").gameObject;
-                switchKnob = _radio1Instantiated.transform.Find("trigger_ocs_switch1").gameObject;
+                powerKnob = _radio1Instantiated.transform.Find("control_power").gameObject;
+                volumeKnob = _radio1Instantiated.transform.Find("control_vol").gameObject;
+                switchKnob = _radio1Instantiated.transform.Find("control_song").gameObject;
 
                 // Add a script to the radio
                 radioCoreInstance = _radio1Instantiated.AddComponent<RadioCore>();
