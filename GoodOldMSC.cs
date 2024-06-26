@@ -3,6 +3,7 @@ using GoodOldMSC.Mods.OldFerndale;
 using GoodOldMSC.Mods.OldHayosiko;
 using GoodOldMSC.Mods.OldKekmet;
 using GoodOldMSC.Mods.OldTruckSounds;
+using GoodOldMSC.Mods.OldWorld;
 
 using HutongGames.PlayMaker.Actions;
 
@@ -22,12 +23,14 @@ namespace GoodOldMSC {
 		private OldTruckSounds _ot = new OldTruckSounds();
 		private OldFerndale _of = new OldFerndale();
 		private OldKekmet _ok = new OldKekmet();
+		private OldWorld _ow = new OldWorld();
 			
 		private SettingsCheckBox _ocsEnabled;
 		private SettingsCheckBox _ohEnabled;
 		private SettingsCheckBox _otEnabled;
 		private SettingsCheckBox _ofEnabled;
 		private SettingsCheckBox _okEnabled;
+		private SettingsCheckBox _owEnabled;
 
         public override void ModSetup()
         {
@@ -64,6 +67,11 @@ namespace GoodOldMSC {
             {
                 _ok.Mod_Load();
             }
+
+			if (_owEnabled.GetValue())
+            {
+                _ow.OnLoad();
+            }
 		}
 		
 		private void Mod_OnGUI() {
@@ -98,6 +106,9 @@ namespace GoodOldMSC {
 
 			_okEnabled = Settings.AddCheckBox(this, "okEnable", "Enable Old Kekmet", false);
 			_ok.ModSettings(this);
+
+			_owEnabled = Settings.AddCheckBox(this, "owEnable", "Enable Old World", false);
+			// TODO: _ow.ModSettings(this);
 		}
 	}
 }
