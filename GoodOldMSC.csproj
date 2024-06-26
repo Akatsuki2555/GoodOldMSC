@@ -61,6 +61,9 @@
     <Compile Include="Mods\OldHayosiko\OldOutsideTextures.cs" />
     <Compile Include="Mods\OldHayosiko\RemoveDashboard.cs" />
     <Compile Include="Mods\OldHayosiko\SteeringWheel.cs" />
+    <Compile Include="Mods\OldKekmet\AntiStall.cs" />
+    <Compile Include="Mods\OldKekmet\OldKekmet.cs" />
+    <Compile Include="Mods\OldKekmet\SoundImprovement.cs" />
     <Compile Include="Mods\OldTruckSounds\Gifu.cs" />
     <Compile Include="Mods\OldTruckSounds\OldTruckSounds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\oldferndale.unity3d" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\oldkekmet.unity3d" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
