@@ -108,7 +108,7 @@ namespace GoodOldMSC {
 			_ok.ModSettings(this);
 
 			_owEnabled = Settings.AddCheckBox(this, "owEnable", "Enable Old World", false);
-			// TODO: _ow.ModSettings(this);
+			_ow.ModSettings(this);
 		}
 	}
 }
