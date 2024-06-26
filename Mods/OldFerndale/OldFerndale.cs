@@ -59,7 +59,7 @@ namespace GoodOldMSC.Mods.OldFerndale
                 "<b>Amistech</b> - All of the models and textures used in this mod were originally made by Amistech");
         }
 
-        private void Mod_Load()
+        internal void Mod_Load()
         {
             byte[] numArray;
             using (var manifestResourceStream = Assembly.GetExecutingAssembly()
