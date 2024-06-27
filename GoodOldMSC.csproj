@@ -61,6 +61,7 @@
     <Compile Include="Mods\OldHayosiko\OldOutsideTextures.cs" />
     <Compile Include="Mods\OldHayosiko\RemoveDashboard.cs" />
     <Compile Include="Mods\OldHayosiko\SteeringWheel.cs" />
+    <Compile Include="Mods\OldHighwayCars\OldHighwayCars.cs" />
     <Compile Include="Mods\OldKekmet\AntiStall.cs" />
     <Compile Include="Mods\OldKekmet\OldKekmet.cs" />
     <Compile Include="Mods\OldKekmet\SoundImprovement.cs" />

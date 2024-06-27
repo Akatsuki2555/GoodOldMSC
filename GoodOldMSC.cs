@@ -1,6 +1,8 @@
-﻿using GoodOldMSC.Mods.OldCarSounds;
+﻿using System;
+using GoodOldMSC.Mods.OldCarSounds;
 using GoodOldMSC.Mods.OldFerndale;
 using GoodOldMSC.Mods.OldHayosiko;
+using GoodOldMSC.Mods.OldHighwayCars;
 using GoodOldMSC.Mods.OldKekmet;
 using GoodOldMSC.Mods.OldTruckSounds;
 using GoodOldMSC.Mods.OldWorld;
@@ -24,6 +26,7 @@ namespace GoodOldMSC {
 		private OldFerndale _of = new OldFerndale();
 		private OldKekmet _ok = new OldKekmet();
 		private OldWorld _ow = new OldWorld();
+		private OldHighwayCars _ohc = new OldHighwayCars();
 			
 		private SettingsCheckBox _ocsEnabled;
 		private SettingsCheckBox _ohEnabled;
@@ -31,6 +34,7 @@ namespace GoodOldMSC {
 		private SettingsCheckBox _ofEnabled;
 		private SettingsCheckBox _okEnabled;
 		private SettingsCheckBox _owEnabled;
+		private SettingsCheckBox _ohcEnabled;
 
         public override void ModSetup()
         {
@@ -72,7 +76,12 @@ namespace GoodOldMSC {
             {
                 _ow.OnLoad();
             }
-		}
+
+            if (_ohcEnabled.GetValue())
+            {
+                _ohc.OnLoad();
+            }
+        }
 		
 		private void Mod_OnGUI() {
 			if (_ocsEnabled.GetValue())
@@ -107,8 +116,10 @@ namespace GoodOldMSC {
 			_okEnabled = Settings.AddCheckBox(this, "okEnable", "Enable Old Kekmet", false);
 			_ok.ModSettings(this);
 
-			_owEnabled = Settings.AddCheckBox(this, "owEnable", "Enable Old World", false);
-			_ow.ModSettings(this);
-		}
+            _owEnabled = Settings.AddCheckBox(this, "owEnable", "Enable Old World", false);
+            _ow.ModSettings(this);
+
+            _ohcEnabled = Settings.AddCheckBox(this, "ohcEnable", "Enable Old Highway Cars", false);
+        }
 	}
 }
