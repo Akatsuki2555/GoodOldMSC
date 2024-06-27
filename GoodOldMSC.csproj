@@ -66,6 +66,7 @@
     <Compile Include="Mods\OldKekmet\SoundImprovement.cs" />
     <Compile Include="Mods\OldTruckSounds\Gifu.cs" />
     <Compile Include="Mods\OldTruckSounds\OldTruckSounds.cs" />
+    <Compile Include="Mods\OldWorld\OldWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\oldkekmet.unity3d" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\highwaysatsuma.unity3d" />
+    <EmbeddedResource Include="Resources\oldenv.unity3d" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
