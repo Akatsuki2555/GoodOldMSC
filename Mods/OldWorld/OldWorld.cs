@@ -61,7 +61,7 @@ namespace GoodOldMSC.Mods.OldWorld
         {
             _oldRoad = Settings.AddCheckBox(mod, "oldRoad", "Old Road", false);
             _oldDirtRoad = Settings.AddCheckBox(mod, "oldDirtRoad", "Old Dirt Road", false);
-            _oldDirtRaceTrack = Settings.AddCheckBox(mod, "oldDirtRaceTrack", "Old Dirt Race Track", _removeTreeWalls.GetValue());
+            _oldDirtRaceTrack = Settings.AddCheckBox(mod, "oldDirtRaceTrack", "Old Dirt Race Track", false);
             _oldDrivewayTexture = Settings.AddCheckBox(mod, "oldDrivewayTexture", "Old Driveway Texture", false);
             _removeBridges = Settings.AddCheckBox(mod, "removeBridges", "Remove Bridges", false);
             _removeTreeWalls = Settings.AddCheckBox(mod, "removeTreeWalls", "Remove Tree Walls", false);
