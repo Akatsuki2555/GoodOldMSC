@@ -17,46 +17,27 @@ namespace GoodOldMSC.Mods.OldHayosiko
             //     .GetComponent<MeshFilter>().mesh;
             var steeringWheel = GameObject.Find("KEKMET(350-400psi)")
                 .transform
-                .GetChild(5)
-                .GetChild(4)
-                .GetChild(13)
-                .GetChild(0)
-                .GetChild(0)
+                .Find("LOD/Dashboard/Steering/TractorSteeringPivot/valmet_steering")
                 .gameObject
                 .GetComponent<MeshFilter>()
                 .mesh;
             // GameObject.Find("HAYOSIKO(1500kg, 250)/LOD/Dashboard/Steering/VanSteeringPivot/steering")
             //     .GetComponent<MeshFilter>().mesh = steeringWheel;
-            GameObject.Find("HAYOSIKO(1500kg, 250)")
+            var hayoSteering = GameObject.Find("HAYOSIKO(1500kg, 250)")
                 .transform
-                .GetChild(6)
-                .GetChild(6)
-                .GetChild(12)
-                .GetChild(0)
-                .GetChild(0)
-                .gameObject
+                .Find("LOD/Dashboard/Steering/VanSteeringPivot/steering")
+                .gameObject;
+            hayoSteering
                 .GetComponent<MeshFilter>()
                 .mesh = steeringWheel;
             // GameObject.Find("HAYOSIKO(1500kg, 250)/LOD/Dashboard/Steering/VanSteeringPivot/steering").transform
             //     .localPosition = new Vector3(0.0f, 0.0f, -0.13f);
-            GameObject.Find("HAYOSIKO(1500kg, 250)")
+            hayoSteering
                 .transform
-                .GetChild(6)
-                .GetChild(6)
-                .GetChild(12)
-                .GetChild(0)
-                .GetChild(0)
                 .localPosition = new Vector3(0.0f, 0.0f, -0.13f);
             // GameObject.Find("HAYOSIKO(1500kg, 250)/LOD/Dashboard/Steering/VanSteeringPivot/steering")
             //     .GetComponent<Renderer>().material = assetBundle.LoadAsset<Material>("black");
-            GameObject.Find("HAYOSIKO(1500kg, 250)")
-                .transform
-                .GetChild(6)
-                .GetChild(6)
-                .GetChild(12)
-                .GetChild(0)
-                .GetChild(0)
-                .gameObject
+            hayoSteering
                 .GetComponent<Renderer>()
                 .material = assetBundle.LoadAsset<Material>("black");
         }
