@@ -28,7 +28,6 @@ namespace GoodOldMSC.Mods.OldFerndale
 
         public void ModSettings(Mod mod)
         {
-            Settings.AddHeader(mod, "Settings");
             SettingOldSkin = Settings.AddSlider(mod, "skin", "Skin", 0, 5, 1,
                 textValues: new[] { "Leave as is", "2016", "build 178", "Red", "Blue", "Black" });
             SettingOldWheels = Settings.AddSlider(mod, "oldWheels", "Old Wheels", 0, 3, 1,
@@ -52,7 +51,8 @@ namespace GoodOldMSC.Mods.OldFerndale
                     ModUI.ShowYesNoMessage("Open website: https://mldkyt.com/suggestions?type=oldferndale",
                         () => { Application.OpenURL("https://mldkyt.com/suggestions?type=oldferndale"); });
                 });
-            Settings.AddHeader(mod, "Thanks to");
+
+            Settings.AddText(mod, "<b>Special thanks</b>");
             Settings.AddText(mod,
                 "<b>wojskoda</b> - Suggested most of the features and sent some of the assets that are used in mod mod");
             Settings.AddText(mod,
