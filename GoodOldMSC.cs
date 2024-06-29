@@ -47,39 +47,102 @@ namespace GoodOldMSC {
         }
 
         private void Mod_Load() {
-			if (_ocsEnabled.GetValue())
+			try
 			{
-				_ocs.OnLoad(this);
+                if (_ocsEnabled.GetValue())
+                {
+                    _ocs.OnLoad(this);
+                }
+            }
+			catch (Exception e)
+			{
+				ModConsole.LogError("OldCarSounds");
+				ModConsole.LogError(e.Message);
+				ModConsole.LogError(e.StackTrace.ToString());
 			}
 
-			if (_ohEnabled.GetValue())
+			try
+			{
+                if (_ohEnabled.GetValue())
+                {
+                    _oh.OnLoad();
+                }
+            }
+            catch (Exception e)
             {
-                _oh.OnLoad();
+                ModConsole.LogError("OldCarSounds");
+                ModConsole.LogError(e.Message);
+                ModConsole.LogError(e.StackTrace.ToString());
             }
 
-			if (_otEnabled.GetValue())
+            try
+			{
+                if (_otEnabled.GetValue())
+                {
+                    _ot.OnLoad();
+                }
+            }
+            catch (Exception e)
             {
-                _ot.OnLoad();
+                ModConsole.LogError("OldCarSounds");
+                ModConsole.LogError(e.Message);
+                ModConsole.LogError(e.StackTrace.ToString());
             }
 
-			if (_ofEnabled.GetValue())
+            try
+			{
+                if (_ofEnabled.GetValue())
+                {
+                    _of.Mod_Load();
+                }
+            }
+            catch (Exception e)
             {
-                _of.Mod_Load();
+                ModConsole.LogError("OldCarSounds");
+                ModConsole.LogError(e.Message);
+                ModConsole.LogError(e.StackTrace.ToString());
             }
 
-			if (_okEnabled.GetValue())
+            try
+			{
+                if (_okEnabled.GetValue())
+                {
+                    _ok.Mod_Load();
+                }
+            }
+            catch (Exception e)
             {
-                _ok.Mod_Load();
+                ModConsole.LogError("OldCarSounds");
+                ModConsole.LogError(e.Message);
+                ModConsole.LogError(e.StackTrace.ToString());
             }
 
-			if (_owEnabled.GetValue())
+            try
+			{
+                if (_owEnabled.GetValue())
+                {
+                    _ow.OnLoad();
+                }
+            }
+            catch (Exception e)
             {
-                _ow.OnLoad();
+                ModConsole.LogError("OldCarSounds");
+                ModConsole.LogError(e.Message);
+                ModConsole.LogError(e.StackTrace.ToString());
             }
 
-            if (_ohcEnabled.GetValue())
+            try
+			{
+                if (_ohcEnabled.GetValue())
+                {
+                    _ohc.OnLoad();
+                }
+            }
+            catch (Exception e)
             {
-                _ohc.OnLoad();
+                ModConsole.LogError("OldCarSounds");
+                ModConsole.LogError(e.Message);
+                ModConsole.LogError(e.StackTrace.ToString());
             }
         }
 		
