@@ -33,21 +33,28 @@ namespace GoodOldMSC.Mods.OldWorld
             Texture2D texture2D = assetBundle.LoadAsset<Texture2D>("dirtroad");
             Texture2D texture2D2 = assetBundle.LoadAsset<Texture2D>("gravel_road");
             Texture2D texture2D3 = assetBundle.LoadAsset<Texture2D>("house_concrete");
-            if (_oldRoad.GetValue()) GameObject.Find("MAP/MESH/TERRAIN_OBJ/Road").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D2;
-            if (_oldDirtRoad.GetValue()) GameObject.Find("MAP/MESH/TERRAIN_OBJ/DirtRoad").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D;
-            if (_oldDirtRaceTrack.GetValue()) GameObject.Find("MAP/MESH/TERRAIN_OBJ/Gravel").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D;
-            if (_oldDrivewayTexture.GetValue()) GameObject.Find("YARD/Building/Mesh/house_base_concrete").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D3;
+            if (_oldRoad.GetValue()) GameObject.Find("MAP")
+                    .transform.Find("MESH/TERRAIN_OBJ/Road").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D2;
+            if (_oldDirtRoad.GetValue()) GameObject.Find("MAP")
+                    .transform.Find("MESH/TERRAIN_OBJ/DirtRoad").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D;
+            if (_oldDirtRaceTrack.GetValue()) GameObject.Find("MAP")
+                    .transform.Find("MESH/TERRAIN_OBJ/Gravel").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D;
+            if (_oldDrivewayTexture.GetValue()) GameObject.Find("YARD")
+                    .transform.Find("Building/MeshLOD/house_base_concrete").GetComponent<Renderer>().sharedMaterial.mainTexture = texture2D3;
             if (_removeBridges.GetValue())
             {
-                GameObject.Find("MAP/MESH/BRIDGE_dirt").SetActive(false);
-                GameObject.Find("MAP/MESH/BRIDGE_highway").SetActive(false);
+                GameObject.Find("MAP")
+                    .transform.Find("MESH/BRIDGE_dirt").gameObject.SetActive(false);
+                GameObject.Find("MAP")
+                    .transform.Find("MESH/BRIDGE_highway").gameObject.SetActive(false);
             }
             if (_removeTreeWalls.GetValue())
             {
-                GameObject gameObject = GameObject.Find("MAP/MESH");
-                for (int i = 0; i < gameObject.transform.childCount; i++)
+                Transform t= GameObject.Find("MAP")
+                    .transform.Find("MESH");
+                for (int i = 0; i < t.childCount; i++)
                 {
-                    Transform child = gameObject.transform.GetChild(i);
+                    Transform child = t.GetChild(i);
                     if (child.name == "LogwallLarge")
                     {
                         child.gameObject.SetActive(false);
