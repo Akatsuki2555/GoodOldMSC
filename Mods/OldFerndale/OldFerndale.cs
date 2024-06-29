@@ -48,8 +48,8 @@ namespace GoodOldMSC.Mods.OldFerndale
             Settings.AddButton(mod, "Suggest new features",
                 () =>
                 {
-                    ModUI.ShowYesNoMessage("Open website: https://mldkyt.com/suggestions?type=oldferndale",
-                        () => { Application.OpenURL("https://mldkyt.com/suggestions?type=oldferndale"); });
+                    ModUI.ShowYesNoMessage("Open website: https://akatsuki.nekoweb.org",
+                        () => { Application.OpenURL("https://akatsuki.nekoweb.org"); });
                 });
 
             Settings.AddText(mod, "<b>Special thanks</b>");
