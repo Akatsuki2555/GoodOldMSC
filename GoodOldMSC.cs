@@ -162,26 +162,32 @@ namespace GoodOldMSC {
 
 		public override void ModSettings() {
 			Settings.AddText(this, "Since the mod is in alpha, more features will be added in the future.");
-			Settings.AddHeader(this, "Satsuma");
 
+            Settings.AddHeader(this, "Old Car Sounds");
 			_ocsEnabled = Settings.AddCheckBox(this, "ocsEnable", "Enable Old Car Sounds", false);
 			_ocs.ModSettings(this);
 
+            Settings.AddHeader(this, "Old Hayosiko");
 			_ohEnabled = Settings.AddCheckBox(this, "ohEnable", "Enable Old Hayosiko", false);
 			_oh.ModSettings(this);
 
+            Settings.AddHeader(this, "Old Truck Sounds");
 			_otEnabled = Settings.AddCheckBox(this, "otEnable", "Enable Old Truck Sounds", false);
 			_ot.ModSettings(this);
 
+            Settings.AddHeader(this, "Old Ferndale");
 			_ofEnabled = Settings.AddCheckBox(this, "ofEnable", "Enable Old Ferndale", false);
 			_of.ModSettings(this);
 
+            Settings.AddHeader(this, "Old Kekmet");
 			_okEnabled = Settings.AddCheckBox(this, "okEnable", "Enable Old Kekmet", false);
 			_ok.ModSettings(this);
 
+            Settings.AddHeader(this, "Old World");
             _owEnabled = Settings.AddCheckBox(this, "owEnable", "Enable Old World", false);
             _ow.ModSettings(this);
 
+            Settings.AddHeader(this, "Old Highway Cars");
             _ohcEnabled = Settings.AddCheckBox(this, "ohcEnable", "Enable Old Highway Cars", false);
         }
 	}
